@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>codedamn Web 3 App</title>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			:root {
+				/** color */
+				--fg-default: #f5f9fc;
+				--fg-dimmer: #c2c8cc;
+				--fg-dimmest: #9da2a6;
+				--bg-root: #161616;
+				--bg-default: #282828;
+				--bg-higher: #2b3245;
+				--bg-highest: #3c445c;
+				--outline-default: #70788c;
+				--outline-dimmer: #5f677a;
+				--outline-dimmest: #4e5569;
+				--overlay: #0e1525a0;
+
+				/**accents */
+				--accent-primary-default: #0099ff;
+				--accent-primary-dimmer: #0072bd;
+
+				--accent-negative-default: #f23f3f;
+				--accent-negative-dimmer: #8f2828;
+
+				--accent-warning-default: #ccad14;
+				--accent-warning-dimmer: #756200;
+
+				/**type */
+				--font-family-default: 'IBM Plex Sans', sans-serif;
+				--font-family-code: 'IBM Plex Mono', monospace;
+
+				--font-size-header: 24px;
+				--font-size-subheader: 18px;
+				--font-size-medium: 16px;
+				--font-size-default: 14px;
+				--font-size-small: 12px;
+
+				/**spacing */
+				--space-8: 8px;
+				--space-16: 16px;
+				--space-24: 24px;
+				--space-32: 32px;
+
+				/**border radius */
+				--br-8: 8px;
+			}
+			* {
+				font-family: var(--font-family-default);
+				font-size: var(--font-size-default);
+			}
+
+			a {
+				color: var(--accent-primary-default);
+			}
+
+			button {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: var(--space-8);
+				font-weight: 500;
+				outline: none;
+				background-color: var(--bg-higher);
+				border: 1px solid var(--bg-higher);
+				color: white;
+				font-size: var(--font-size-default);
+				line-height: var(--font-size-default);
+				cursor: pointer;
+			}
+
+			button:disabled {
+				background: var(--bg-highest) !important;
+				border-color: var(--bg-higher) !important;
+				color: var(--fg-dimmest) !important;
+			}
+			button.primary {
+				border: 1px solid var(--accent-primary-dimmer);
+				background-color: var(--accent-primary-dimmer);
+				color: white;
+				padding: 0 10px;
+			}
+			body {
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				min-height: 100vh;
+			}
+
+			h1,
+			h2,
+			h3,
+			p {
+				color: var(--fg-default);
+			}
+
+			h1 {
+				font-size: var(--font-size-header);
+				margin: 0;
+				font-weight: 500;
+			}
+			.main-title {
+				font-size: var(--font-size-subheader) !important;
+			}
+
+			h2 {
+				font-size: var(--font-size-subheader);
+				margin: 0;
+				font-weight: 500;
+			}
+
+			p,
+			span {
+				font-size: var(--font-size-default);
+			}
+
+			code,
+			pre {
+				font-size: var(--font-size-default);
+				font-family: var(--font-family-code);
+				white-space: pre-wrap;
+				padding: var(--space-8);
+				margin: 0;
+			}
+
+			.code-error {
+				color: var(--accent-negative-default);
+			}
+
+			select {
+				background: var(--bg-root);
+				border: 1px solid var(--outline-default);
+				padding: var(--space-8);
+				color: var(--fg-default);
+				background-position-x: 2px;
+			}
+
+			select:focus,
+			input:focus,
+			button:focus,
+			button:active {
+				outline: none;
+				border: 1px solid var(--accent-primary-default);
+			}
+
+			input {
+				background: var(--bg-higher);
+				color: var(--fg-default);
+				padding: var(--space-8);
+				border: 1px solid var(--outline-default);
+			}
+
+			#root {
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				background-color: var(--bg-root);
+				width: 100%;
+				height: 100%;
+				min-height: 100vh;
+			}
+
+			/** extra goodies for loading states */
+			@keyframes flickerAnimation {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-o-keyframes flickerAnimation {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-moz-keyframes flickerAnimation {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			.animate-flicker {
+				-moz-animation: flickerAnimation 2s infinite;
+				-o-animation: flickerAnimation 2s infinite;
+				animation: flickerAnimation 2s infinite;
+			}
+
+			/** main media query */
+			@media only screen and (max-width: 480px) {
+				.deployment-header,
+				.address-balance {
+					flex-direction: column;
+					gap: 8px;
+					align-items: start !important;
+					justify-content: stretch !important;
+				}
+				.address-balance {
+					flex-direction: column-reverse;
+					gap: 8px;
+					align-items: flex-end !important;
+				}
+
+				.run-button {
+					width: 100% !important;
+				}
+
+				.deployer,
+				.deployer > select {
+					width: 100%;
+				}
+
+				.function-list {
+					width: 140px !important;
+				}
+				.function-state-text {
+					display: none !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root">
+			<p style="color: white; font-size: 18px">Loading...</p>
+		</div>
+		<script src="https://bit.ly/codedamn-web-console"></script>
+		<script type="module" src="/preview/ui.jsx"></script>
+	</body>
+</html>
